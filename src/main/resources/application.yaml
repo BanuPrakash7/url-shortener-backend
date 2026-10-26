@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: url-shortener-api
+  datasource:
+    url: jdbc:mysql://localhost:3306/urlshortener
+    username: root
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
+    consumer:
+      group-id: click-consumer
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
+      properties:
+        spring.json.trusted.packages: com.engineeringdigest.url_shortener.dto
+
+app:
+  base-url: http://localhost:8080
+
+
+jwt:
+  secret: this-is-a-demo-secret-key-hhhnpepptqinpgrrduxoiot-hdijwp
+  expiration: 900000            # 15 minute
+  refresh-expiration: 604800000
